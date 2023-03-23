@@ -1,4 +1,5 @@
 <?php
+require_once('config.php');
 session_start();
 //echo '<pre>';
 // $_POST - массив - содержит в себе информацию о POST запросе
@@ -28,19 +29,72 @@ if (isset($_POST['action']))
     {
         case 'add-product':
                 // посмотреть список входящих файлов!
-                echo '<pre>';
-                // массив с файлами
-                $files = [];
-                foreach($_FILES['files']['name'] as $key => $value )
+            
+                // получаем данные о товаре
+                $name = $_POST['name'] ?? NULL;
+                $article = $_POST['article'] ?? NULL;
+                $description = $_POST['description'] ?? NULL;
+                // (int) - преобразуем в число 
+                $price = (int)$_POST['price'] ?? NULL;
+                $count = (int)$_POST['count'] ?? NULL;
+
+                // создаем подготовленный запрос
+                $sth = $dbh->prepare(" INSERT INTO products (name,description,article,price,quantity) VALUES (:n,:d,:a,:p,:c) ");
+                // выполнить sql запрос
+                $sth->execute( ['n'=>$name,'d'=>$description,'a'=>$article,'p'=>$price,'c'=>$count] );
+
+                // получаем id вставленной записи
+                $insert_id = $dbh->lastInsertId();
+
+                if ($insert_id)
                 {
-                    foreach($_FILES['files'] as $name => $arr)
+                    // если были файлы на загрузку
+                    if (count($_FILES) > 0 )
                     {
-                        $files[$key][$name]= $arr[$key];  
+                            // новый массив с файлами
+                            $files = [];
+                            foreach($_FILES['files']['name'] as $key => $value )
+                            {
+                                foreach($_FILES['files'] as $name => $arr)
+                                {
+                                    $files[$key][$name]= $arr[$key];  
+                                }
+                            }
+
+                            // вызываем нашу функцию и передаем наш массив $files
+                            // return array
+                            $result = uploadFiles($files);
+                            $sql = " INSERT INTO photos (id_products,url) VALUES ";
+                            $sql_values = '';
+
+                            foreach($result['files'] as $name)
+                            {
+                                $name = validationStr($name);
+                                $name = ROOT_PATH.'/src/'.$name;
+                                $sql_values .= "($insert_id,'$name'),";    
+                            }
+                        
+                            // substr() - вырезает из строки символы в диапазоне
+                            // убрали символ "," в конце строки
+                            $sql_values = substr($sql_values,0,strlen($sql_values)-1);
+                            $sql = $sql.$sql_values;
+       
+                            // подготавливаем выражение
+                            $dbh->query($sql);
+
+                            if ($dbh->lastInsertId())
+                            {
+                                echo 'Успешно добавили ссылку '.$dbh->lastInsertId();
+                            }
+
                     }
+                    // echo 'Успешно добавили товар '.$insert_id;
                 }
-
-                //var_dump($files);
-
+                else
+                {
+                    echo '<pre>';
+                    var_dump( $dbh->errorInfo() );
+                }
         break;
 
         case 'search':
@@ -61,6 +115,42 @@ if (isset($_POST['action']))
         break;
     }
 }
+
+function uploadFiles($files)
+{
+        $count = 0;
+        $response = [
+            'count'=>0,
+            'files'=>[]
+        ];
+        // перебираем наш массив с файлами
+        foreach ($files as $array)
+        {
+            // получаем имя текущего файла
+            // implode() - join()
+            // explode() - split()
+            // taro.zip - > ['taro','zip'] - индексный массив
+            $fName = explode('.',$array['name']);
+            // записываем название файла без расширения
+            $fName2 = $fName[0].'_'.time().'.'.$fName[1];
+            // перемещаем файл из временной директории сервера в нашу постоянную
+            // в src
+            // забираем файл из tmp_name 
+            $result = move_uploaded_file($array['tmp_name'],ROOT_PATH.'/src/'.$fName2);
+            if ($result)
+            {
+                // если файл был успешно мерещен в постоянную директорию
+                $count++;
+                // записываем имя файла
+                $response['files'][] = $fName2;
+            }
+        }
+        // записываем количество перемещенных файлов 
+        $response['count'] = $count;
+        // возвращаем $response
+        return $response;
+}
+
 
 function search($text)
 {

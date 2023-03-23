@@ -61,4 +61,20 @@ if ($role != 9 ) {
     <input type="file" name="files[]" multiple="multiple">
     <input class="d-none" type="text" name="action" value="add-product">
     <input type="submit" value="Добавить товар">
+    <div class="drag_zone">
+        
+    </div>
+    <div class="drag_preview">
+        
+    </div>
 </form>
+
+
+<!-- 
+
+    // dragenter - когда объект находится в дроп зоне (1 раз)
+    // dragleave - когда вышел за пределы дроп зоны (1 раз)
+    // dragover -  когда находимся в зоне (срабатывает постоянно)
+    // drop - когда отпустили файлы в дроп зоне
+
+ -->

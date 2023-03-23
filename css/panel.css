@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .d-none {
     display: none!important;
 }
@@ -9,8 +13,45 @@ form {
 }
 
 form input {
+    width: 100%;
     padding: 10px;
     display: block;
 }
 
+.drag_zone {
+    cursor: pointer;
+    margin-top: 10px;
+    height: 100px;
+    width: 100%;
+    border: 2px dashed blue;   
+}
 
+.drag_zone:hover {
+    border: 2px dashed green;
+    background-color: aliceblue;
+}
+
+.drag_preview {
+    width: 100%;
+}
+
+.drag_preview_item {
+    /* position: relative; */
+    height: 75px;
+    border: 1px solid black;
+}
+
+.parent {
+    position: relative;
+    display: inline-block;
+}
+
+.close {
+    height: 10px;
+    width: 10px;
+    color: black;
+    position: absolute;
+    content: "X";
+    right: 0;
+    top: 0;  
+}
