@@ -22,6 +22,7 @@
         else
         {
             // если товар уже был, тогда мы добавляем еще один url
+            // sfgfgfgf
             $products[$product['id_products']]['url'][] = $product['url'];
         }
     }
