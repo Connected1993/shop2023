@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+ }
+
+.d-none {
+    display: none!important;
+}
+
+html,body {
+    height: 100%;
+}
+
+.p-table {
+    /* таблица */
+    display: table;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 50px; 
+    border-collapse: collapse;
+}
+
+.p-item {
+    /* ряд */
+    display: table-row;
+    width: 100%;
+    height: 150px;
+}
+
+.p-result {
+    display: table-row;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+}
+
+.p-result .p-body {
+    text-align: center;
+}
+
+.p-item > div,
+.p-result > div {
+    /* ячейка */
+    display:table-cell;
+    border: 1px solid black;
+    vertical-align: middle;
+}
+
+.p-header {
+    width: 20%;
+    min-width: 100px;
+    text-align: center;
+}
+
+.p-header img {
+    max-height: 150px;
+}
+
+.p-body {
+    padding: 0 10px;
+    width: 60%;
+    text-align: justify;
+}
+
+.p-body details {
+    display: none;
+}
+
+.p-panel {
+    width: 20%;
+}
+
+.p-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+.fa-trash {
+    cursor: pointer;
+    font-size: 50px;
+}
+
+.p-item .p-panel input {
+    width: 50%;
+    font-size: 20px;
+    text-align: center;
+    outline: none;
+}
+
+@media screen and (max-width:500px) {
+    .p-body details {
+        display: block;
+    }
+
+    .p-body summary {
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .p-body__default {
+        display: none;
+    }
+}

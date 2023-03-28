@@ -1,0 +1,65 @@
+html,
+body {
+  margin: 0;
+}
+
+.d-none {
+    display: none;
+}
+
+.products {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1030px;
+  min-width: 320px;
+  /* отступы между карточками товаров */
+  gap: 10px;
+}
+
+.products__item {
+  text-align: center;
+  padding: 5px;
+  box-sizing: border-box;
+  width: 250px;
+  flex-shrink: 0;
+  border: 1px solid black;
+}
+
+.products__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.products__item img {
+  height: 150px;
+}
+
+.products__price::before {
+  content: "купить ";
+}
+
+.products__price::after {
+  content: " руб";
+}
+
+.products__price {
+  width: 200px;
+  display: inline-block;
+  background-color: rgba(0, 128, 0, 0.669);
+  cursor: pointer;
+  border: 2px solid rgb(250, 239, 30);
+  border-radius: 5px;
+  height: 30px;
+  color: white;
+  line-height: 30px;
+  transition: all 0.3s;
+}
+
+.products__price:hover {
+  background-color: rgba(4, 177, 4, 0.669);
+}
