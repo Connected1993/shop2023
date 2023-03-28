@@ -42,7 +42,9 @@
             <div class="products__item" >
                 <div class="products__name"><?=$product['name']?></div>
                 <img src="<?=$url?>" class="products__image">
-                <div class="products__price" data-id="<?=$product['id_products']?>"><?=$product['price']?></div>
+                <a href="/components/product.php?id=<?=$product['id_products']?>">
+                    <div class="products__price" data-id="<?=$product['id_products']?>"><?=$product['price']?></div>
+                </a>
             </div>
             <!-- конец родителя -->
         <?php } ?>
