@@ -1,6 +1,6 @@
 <?php
 // Создаем константу
-define('PROJECT','shop2023');
+define('PROJECT','');
 // путь к нашему проекту
 define('ROOT',$_SERVER['DOCUMENT_ROOT']);
 // полный путь к нашему проекту
