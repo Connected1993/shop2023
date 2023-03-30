@@ -22,7 +22,7 @@
             <div class="products__item" >
                 <div class="products__name"><?=$product['name']?></div>
                 <img src="<?=$product['url'][0]?>" class="products__image">
-                <a href="<?=PAGES_URL?>/product.php?id=<?=$product['id_products']?>">
+                <a href="?page=product&id=<?=$product['id_products']?>">
                     <div class="products__price" data-id="<?=$product['id_products']?>"><?=$product['price']?></div>
                 </a>
             </div>
