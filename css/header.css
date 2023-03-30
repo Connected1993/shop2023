@@ -34,6 +34,10 @@ header img {
     position: relative;
 }
 
+.menu__basket a{
+    text-decoration: none;
+    color:inherit;
+}
 .menu__circle {
     height: 30px;
     width: 30px;

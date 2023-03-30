@@ -1,6 +1,34 @@
 <?php
-// Создаем константу
+// echo '<pre>';
+// var_dump($_SERVER);
+// exit;
+// Создаем константу название поекта
 define('PROJECT','shop2023');
+
+if ($_SERVER['HTTP_HOST'] == 'localhost')
+{
+    // включаем вывод ошибок для разработки
+    ini_set('display_errors',1);
+    ini_set('display_startup_errors',1);
+    error_reporting(E_ALL);
+    
+    // конфигурация для локального запуска
+    define('PRODUCTION',FALSE);
+    define('PAGES_URL','http://'.$_SERVER['HTTP_HOST'].'/'.PROJECT.'/pages');
+    define('JS_URL','http://'.$_SERVER['HTTP_HOST'].'/'.PROJECT.'/js');
+    define('CSS_URL','http://'.$_SERVER['HTTP_HOST'].'/'.PROJECT.'/css');
+}
+else
+{
+    // выключаем вывод ошибок для разработки
+    ini_set('display_errors',0);
+    ini_set('display_startup_errors',0);
+    error_reporting(0);
+    // конфигурация для боевого запуска
+    define('PRODUCTION',TRUE);
+}
+
+
 // путь к нашему проекту
 define('ROOT',$_SERVER['DOCUMENT_ROOT']);
 // полный путь к нашему проекту
@@ -11,3 +39,5 @@ define('PAGES',ROOT_PATH.'\pages');
 define('COMPONENTS',ROOT_PATH.'\components');
 // папка с скриптами
 define('JS',ROOT_PATH.'\js');
+
+
