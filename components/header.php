@@ -36,7 +36,9 @@
             <a href="#" target="_blank">Контакты</a>
 
             <div class="menu__basket">
-                <i class="fa fa-2x fa-shopping-cart"></i>
+                <a href="">
+                    <i class="fa fa-2x fa-shopping-cart"></i>
+                </a>
                 <div class="menu__circle">0</div>
             </div>
         </div>
