@@ -8,26 +8,43 @@ if (!isset($_GET['id'])) {
 
 $id = (int)$_GET['id'];
 $result = $dbh->query("SELECT *, (select GROUP_CONCAT(url) from `source` where id_products=$id) as url FROM `products` WHERE id_products=$id");
-$result = $result->fetchAll();
-echo '<pre>';
-var_dump($result);
+// массив с данными о товаре
+$product = $result->fetchAll();
+// если товар не найден, сбрасывам на главную
+if (count($product) == 0) redirectUrl();
+// сместить указатель на 1 элемент массива
+$product = current($product);
+$product['url'] = explode(',',$product['url']);
 
+
+// проверка на наличии изображения у товара!
+$image = isset($product['url'][0])? $product['url'][0] : '/'.PROJECT.'/source/not-found.jpg';
 ?>
 
 <div class="wrapper">
     <div class="left-column">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
+        <!-- to do slider
+         <div class="slider__line">
+            <img src="" alt="">
+            <img src="" alt="">
+            <img src="" alt="">
+            <img src="" alt="">
+        </div>
+        <div class="slider__panel">
+               arrows btn 
+            </div>
+        -->
+
+        <img src="<?=$image?>">
     </div>
     <div class="right-column">
         <div class="product-description">Фен
-            <h1>ФЕН</h1>
+            <h1><?=$product['name']?></h1>
             <div>Наличие товара:
                 <div class="color"> Товар в наличии</div>
             </div>
             <div>Артикул</div>
-            <p> Описание </p>
+            <p> Описание: <?=$product['description']?> </p>
         </div>
         <div class="product-configuration">
             <div class="product-color">Цвет
@@ -46,7 +63,7 @@ var_dump($result);
                     </div>
                 </div>
             </div>
-            <div class="product-price"> 299 руб
+            <div class="product-price"> <?=$product['price']?> руб
                 <a class="cart-btn" href="#">Добавить в корзину</a>
             </div>
         </div>

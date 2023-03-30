@@ -17,7 +17,9 @@
     <script defer src="js/basket.js"></script>
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/product.css">
+
 </head>
 <body>
     <header>
@@ -36,7 +38,7 @@
             <a href="#" target="_blank">Контакты</a>
 
             <div class="menu__basket">
-                <a href="<?=PAGES_URL?>/basket.php">
+                <a href="?page=basket">
                     <i class="fa fa-2x fa-shopping-cart"></i>
                 </a>
                 <div class="menu__circle">0</div>
