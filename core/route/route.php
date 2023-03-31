@@ -43,7 +43,6 @@ function includeFile($path,$fName)
 {
     // передаем переменную для коннекта к базе
     global $dbh;
-
     // проверяем существует ли файл ?
     if (file_exists($path.'/'.$fName.'.php'))
     {

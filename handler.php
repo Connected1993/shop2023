@@ -1,5 +1,7 @@
 <?php
 require_once('config.php');
+require_once(DB.'/db.php');
+require_once(ROOT.'/core/route/route.php');
 session_start();
 
 if (isset($_GET['logout']))
@@ -11,7 +13,7 @@ if (isset($_GET['logout']))
     // уничтожаем сессию
     session_destroy();
     // перенаправляем пользователя на главную странчку
-    header('Location: /',true,301);
+    redirectUrl();
     exit;
 }
 
@@ -205,7 +207,7 @@ function auth()
         // положили данные по ключу USER в сессию
         $_SESSION['USER'] = current($result);
         // перенаправляет пользователя на страницу
-        header('Location: '.PROJECT.'/?admin',true,301);
+        header('Location: /?page=admin',true,301);
         exit;
     } 
     else
