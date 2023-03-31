@@ -23,8 +23,8 @@
 </head>
 <body>
     <header>
-        <a href="admin.php">Админ панель</a>
-        <a href="handler.php?logout=true">Выход</a>
+        <a href="?page=admin">Админ панель</a>
+        <a href="?page=logout">Выход</a>
 
         <img src="source/logo.svg" alt="logotip">
         <div class="menu">

@@ -3,7 +3,7 @@
 // var_dump($_SERVER);
 // exit;
 // Создаем константу название поекта
-define('PROJECT','shop2023');
+define('PROJECT',$_SERVER['HTTP_HOST']);
 
 if ($_SERVER['HTTP_HOST'] == 'localhost')
 {
@@ -29,15 +29,13 @@ else
 }
 
 
-// путь к нашему проекту
-define('ROOT',$_SERVER['DOCUMENT_ROOT']);
 // полный путь к нашему проекту
-define('ROOT_PATH',ROOT.'\\'.PROJECT);
+define('ROOT',$_SERVER['DOCUMENT_ROOT']);
 // путь к папке со страничками
-define('PAGES',ROOT_PATH.'\pages');
+define('PAGES',ROOT.'\pages');
 // компоненты
-define('COMPONENTS',ROOT_PATH.'\components');
+define('COMPONENTS',ROOT.'\components');
 // папка с скриптами
-define('JS',ROOT_PATH.'\js');
+define('JS',ROOT.'\js');
 
-
+define('DB',ROOT.'\core\db');

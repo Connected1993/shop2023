@@ -11,12 +11,20 @@ if (isset($_GET['page']))
             includeFile(PAGES,$page);
         break;
 
+        case 'admin':
+            includeFile(ROOT,$page);
+        break;
+
+        case 'logout':
+            $_GET['logout'] = 1;
+            includeFile(ROOT,'handler');
+        break;
+
         default:
             //всегда грузим по умолчанию
             //includeFile(COMPONENTS,'main');
         redirectUrl();
         break;
-        
     }
 }
 else
@@ -25,10 +33,8 @@ else
     includeFile(COMPONENTS,'main');
 }
 
-function redirectUrl($url = '')
+function redirectUrl($url = '/')
 {
-    // если пустой то идем на главную
-    if (empty($url)) $url = '/'.PROJECT.'/';
     header("Location: $url ",false,302);
     exit;
 }
@@ -37,6 +43,7 @@ function includeFile($path,$fName)
 {
     // передаем переменную для коннекта к базе
     global $dbh;
+
     // проверяем существует ли файл ?
     if (file_exists($path.'/'.$fName.'.php'))
     {

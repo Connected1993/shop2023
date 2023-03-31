@@ -2,12 +2,11 @@
 // запуск сессии
 // запуск функции всегда должен быть в самом начале скрипта
 session_start();
-
 // получили роль пользователя
 $role = $_SESSION['USER']['role'];
 
 if ($role != 9 ) {
-    header('Location: /shop2023',true,301);
+    header('Location: /sign.php' ,true,301);
     exit;
 }
 

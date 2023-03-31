@@ -1,8 +1,6 @@
 <?php
 require_once('config.php');
 session_start();
-//echo '<pre>';
-// $_POST - массив - содержит в себе информацию о POST запросе
 
 if (isset($_GET['logout']))
 {
@@ -13,14 +11,15 @@ if (isset($_GET['logout']))
     // уничтожаем сессию
     session_destroy();
     // перенаправляем пользователя на главную странчку
-    header('Location: /shop2023/sign.php',true,301);
+    header('Location: /',true,301);
     exit;
 }
 
 
 if (isset($_POST['action']))
-{
-    require('db.php');
+{   
+ 
+    require_once(DB.'\db.php');
     // $action = search
     $action = $_POST['action'] ?? '';
     $text = $_POST['text'] ?? ''; 
@@ -193,7 +192,7 @@ function auth()
 {
     extract($_POST);
     //echo validationStr($login);
-  
+    
     // переменная содержит подключение к бд
     $dbh = $GLOBALS['dbh'];
     $sql = "SELECT * FROM users WHERE (login='$login' or email='$email') AND password = '$p1' ";
@@ -206,7 +205,7 @@ function auth()
         // положили данные по ключу USER в сессию
         $_SESSION['USER'] = current($result);
         // перенаправляет пользователя на страницу
-        header('Location: /shop2023',true,301);
+        header('Location: '.PROJECT.'/?admin',true,301);
         exit;
     } 
     else
@@ -215,7 +214,6 @@ function auth()
     }
 
 }
-
 
 
 function validationStr($str)
