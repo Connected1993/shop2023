@@ -193,15 +193,10 @@ function reg()
 function auth()
 {
     extract($_POST);
-    //echo validationStr($login);
-    
-    // переменная содержит подключение к бд
-    $dbh = $GLOBALS['dbh'];
+    global $dbh;
     $sql = "SELECT * FROM users WHERE (login='$login' or email='$email') AND password = '$p1' ";
-    // query() - отправляем запрос
-    // fetchAll() - получаем ответ 
+
     $result = $dbh->query($sql)->fetchAll();
-    // если пользователь был найден
     if ($result)
     {
         // положили данные по ключу USER в сессию
