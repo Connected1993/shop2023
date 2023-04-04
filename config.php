@@ -2,11 +2,12 @@
 // echo '<pre>';
 // var_dump($_SERVER);
 // exit;
-// Создаем константу название поекта
-define('PROJECT',$_SERVER['HTTP_HOST']);
+
 
 if ($_SERVER['HTTP_HOST'] == 'localhost')
 {
+    // Создаем константу название поекта
+    define('PROJECT','shop2023');
     // включаем вывод ошибок для разработки
     ini_set('display_errors',1);
     ini_set('display_startup_errors',1);
@@ -20,6 +21,8 @@ if ($_SERVER['HTTP_HOST'] == 'localhost')
 }
 else
 {
+    // Создаем константу название поекта
+    define('PROJECT',$_SERVER['HTTP_HOST']);
     // выключаем вывод ошибок для разработки
     ini_set('display_errors',0);
     ini_set('display_startup_errors',0);
@@ -27,7 +30,6 @@ else
     // конфигурация для боевого запуска
     define('PRODUCTION',TRUE);
 }
-
 
 // полный путь к нашему проекту
 define('ROOT',$_SERVER['DOCUMENT_ROOT'].'/shop2023');

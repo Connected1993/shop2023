@@ -13,7 +13,7 @@ if (isset($_GET['logout']))
     // уничтожаем сессию
     session_destroy();
     // перенаправляем пользователя на главную странчку
-    redirectUrl();
+   
     exit;
 }
 
@@ -134,7 +134,7 @@ function changeUser()
     $sth->execute(['user'=>$user,'role'=>$role]);
     // проверям сколько строк было изменено при запросе
     $result = $sth->rowCount();
-    
+
     if ($result)
         echo 'Успешно обновили!';
     else
@@ -205,6 +205,8 @@ function reg()
 
     // переменная содержит подключение к бд
     $dbh = $GLOBALS['dbh'];
+    $p1 = password_hash($p1,PASSWORD_DEFAULT);
+    //$p1 = crypt($p1,md5('12345'));
     // формируем select запрос
     $sql = "INSERT INTO users (login,password,email,age) VALUES ('$login','$p1','$email',$age) "; 
     // отправляем запрос в базу и получаем ответ
@@ -218,22 +220,27 @@ function auth()
 {
     extract($_POST);
     global $dbh;
-    $sql = "SELECT * FROM users WHERE (login='$login' or email='$email') AND password = '$p1' ";
+    $hash = password_hash($p1,PASSWORD_DEFAULT);
+    $sql = "SELECT * FROM users WHERE (login='$login' or email='$email')";
 
     $result = $dbh->query($sql)->fetchAll();
+
     if ($result)
     {
-        // положили данные по ключу USER в сессию
-        $_SESSION['USER'] = current($result);
-        // перенаправляет пользователя на страницу
-        header('Location: /shop2023/?page=admin',true,301);
-        exit;
-    } 
-    else
-    {
-        die('Неверный логин или пароль!');
-    }
+        // если пароль верный
+        if (password_verify($p1,current($result)['password']) )
+        {
+            // положили данные по ключу USER в сессию
+            $_SESSION['USER'] = current($result);
+            // перенаправляет пользователя на страницу
+            header('Location: /'.PROJECT.'/',true,301);
+            exit;
+        }
 
+    } 
+    
+    die('Неверный логин или пароль!');
+ 
 }
 
 
