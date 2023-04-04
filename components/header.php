@@ -1,4 +1,5 @@
 <?php
+
     // получили время изменения файла в timestamp формате
     $version = filemtime(JS.'\search.js');
 ?>

@@ -1,7 +1,7 @@
 <?php
 require_once('config.php');
 require_once(DB.'/db.php');
-require_once(ROOT.'/core/route/route.php');
+// require_once(ROOT.'/core/route/route.php');
 session_start();
 
 if (isset($_GET['logout']))
@@ -28,6 +28,10 @@ if (isset($_POST['action']))
 
     switch($action)
     {
+        case 'changeUser':
+            changeUser();
+        break;
+
         case 'add-product':
                 // посмотреть список входящих файлов!
             
@@ -117,6 +121,26 @@ if (isset($_POST['action']))
     }
 }
 
+
+function changeUser()
+{
+    extract($_POST);
+    global $dbh;
+    $sql = "UPDATE users SET role=:role WHERE login=:user OR email=:user ";
+    //$result = $dbh->query($sql)->fetchAll();
+    // подготавливаем запрос
+    $sth = $dbh->prepare($sql);
+    // выполнить
+    $sth->execute(['user'=>$user,'role'=>$role]);
+    // проверям сколько строк было изменено при запросе
+    $result = $sth->rowCount();
+    
+    if ($result)
+        echo 'Успешно обновили!';
+    else
+        echo 'Что-то пошло не так!';
+}
+
 function uploadFiles($files)
 {
         $count = 0;
@@ -202,7 +226,7 @@ function auth()
         // положили данные по ключу USER в сессию
         $_SESSION['USER'] = current($result);
         // перенаправляет пользователя на страницу
-        header('Location: /?page=admin',true,301);
+        header('Location: /shop2023/?page=admin',true,301);
         exit;
     } 
     else

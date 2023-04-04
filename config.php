@@ -30,7 +30,7 @@ else
 
 
 // полный путь к нашему проекту
-define('ROOT',$_SERVER['DOCUMENT_ROOT']);
+define('ROOT',$_SERVER['DOCUMENT_ROOT'].'/shop2023');
 // путь к папке со страничками
 define('PAGES',ROOT.'\pages');
 // компоненты

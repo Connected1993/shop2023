@@ -1,4 +1,4 @@
-const addProduct = document.querySelector('input[type=submit]');
+const addProduct = document.querySelector('#product input[type=submit]');
 const dropZone = document.querySelector('.drag_zone');
 const successExt = ['png','webp','svg','jpg','jpeg']
 const maxFileSize = 1 * 1024 // kb
